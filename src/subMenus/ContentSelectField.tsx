@@ -1,33 +1,24 @@
-
 import React, { useState } from "react";
 import Select from "react-select";
 
-type SelectFieldProps = {
+interface Option {
+  value: string;
+  label: string;
+}
+
+export const ContentSelectField: React.FC<{
   label: string;
   name: string;
-  value: string | number; // Allow both string and number
+  value: string;
   onChange: (selectedOption: any) => void;
-  options: { value: string | number; label: string }[]; // Options as objects
+  options: Option[];
   required?: boolean;
   className?: string;
-};
-
-export const SelectField: React.FC<SelectFieldProps> = ({
-  label,
-  name,
-  value,
-  onChange,
-  options,
-  required,
-  className,
-}) => {
+}> = ({ label, name, value, onChange, options, required, className }) => {
   const [isFocused, setIsFocused] = useState(false);
 
-  // Convert the value to a react-select compatible object
-  const selectedOption = options.find((opt) => opt.value === value);
-
   // Label should float if the field is focused or has a value
-  const shouldFloatLabel = isFocused || (value !== "" && value !== 0); // Handle empty or zero values
+  const shouldFloatLabel = isFocused || value !== "";
 
   return (
     <div className="relative font-paypalRegular text-lg">
@@ -49,17 +40,14 @@ export const SelectField: React.FC<SelectFieldProps> = ({
       {/* React Select */}
       <Select
         name={name}
-        value={selectedOption} // Pass the selected option object
+        value={value ? options.find((opt) => opt.value === value) : null} // Ensures resetting works
         onChange={(selectedOption) =>
           onChange({
-            target: {
-              name,
-              value: selectedOption ? selectedOption.value : "", // Pass the selected value
-            },
+            target: { name, value: selectedOption ? selectedOption.value : "" },
           })
         }
         className={className}
-        options={options} // Pass the options directly
+        options={options}
         classNamePrefix="react-select"
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
@@ -93,3 +81,5 @@ export const SelectField: React.FC<SelectFieldProps> = ({
     </div>
   );
 };
+
+export default ContentSelectField;

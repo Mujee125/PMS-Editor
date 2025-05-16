@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "types": ["node"],
+    "typeRoots": ["./node_modules/@types", "./src","./@types"],
+    "jsx": "react-jsx",
+    "target": "esnext",
+    "allowJs": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "commonjs",
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "noImplicitAny": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "outDir": "dist",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "paths": {
+      "*": ["node_modules/*"]
+    }
+  },
+  "include": ["src/**/*", "global.d.ts"],
+  "exclude": ["node_modules", "**/*.spec.ts"]
+}
