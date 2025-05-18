@@ -5,7 +5,7 @@ An all-in-one offline solution for managing student records and dynamically gene
 📧 For installation inquiries or enterprise deployment, contact us at: info@devtros.com
 
 ---
-
+![Home](screenshots/Screenshot-home.png)
 ## 🚀 Key Features
 
 ### 🧑‍🎓 Student & Class Data Management
@@ -27,7 +27,7 @@ An all-in-one offline solution for managing student records and dynamically gene
 ---
 
 ### ✍️ Paper Composition Tool
-
+![Home](screenshots/Screenshot-editor.png)
 - WYSIWYG Editor:
   - Rich text editor with features similar to Microsoft Word
 - Supports:
@@ -61,7 +61,7 @@ An all-in-one offline solution for managing student records and dynamically gene
 ---
 
 ### 🖨️ Printing & Exporting
-
+![Home](screenshots/Screenshot-printing-paper.png)
 - Dynamic Generation:
   - Generate unique papers for each student using stored data
 - Preview Mode:
@@ -95,7 +95,7 @@ An all-in-one offline solution for managing student records and dynamically gene
 - Electron.js — Desktop application framework  
 - React.js — Frontend UI  
 - SQLite / Better-SQLite3 — Lightweight database  
-- pdfmake / docx / pptxgenjs — Exporting tools  
+- react-to-print  
 - Tailwind CSS — UI styling
 
 ---
