@@ -533,6 +533,8 @@ class DatabaseManager {
     this.db = new Database(DB_NAME, { fileMustExist: false });
     this.db.pragma("foreign_keys = ON");
     this.db.pragma("journal_mode = WAL");
+   
+
     this.initializeTables();
   }
 
@@ -656,7 +658,7 @@ class DatabaseManager {
   }
 
   /**
-   * Generic function to fetch all entries from any table.
+   * ⁡⁣⁣⁢Generic function to fetch all entries from any table.⁡
    */
   getEntries(tableName: string, conditions: Record<string, unknown> = {}) {
     const whereClause =
@@ -668,6 +670,27 @@ class DatabaseManager {
     const stmt = this.db.prepare(`SELECT * FROM ${tableName} ${whereClause}`);
     return stmt.all(...Object.values(conditions));
   }
+
+  // ⁡⁣⁣⁢modified to use the generic function⁡
+
+  // getEntries(
+  //   tableName: string,
+  //   conditions: Record<string, unknown> = {},
+  //   offset = 0,
+  //   limit = 500 // Default batch size based on virtualization
+  // ) {
+  //   const whereClause =
+  //     Object.keys(conditions).length > 0
+  //       ? `WHERE ${Object.keys(conditions)
+  //           .map((col) => `${col} = ?`)
+  //           .join(" AND ")}`
+  //       : "";
+
+  //   const sql = `SELECT * FROM ${tableName} ${whereClause} LIMIT ? OFFSET ?`;
+  //   const stmt = this.db.prepare(sql);
+
+  //   return stmt.all(...Object.values(conditions), limit, offset);
+  // }
 
   /**
    * Generic function to fetch a specific entry by id from any table.
@@ -760,6 +783,10 @@ class DatabaseManager {
   getAllStudents(): StudentData[] {
     return this.getEntries("students_tbl") as StudentData[];
   }
+
+  // getAllStudents(offset = 0, limit = 500): StudentData[] {
+  //   return this.getEntries("students_tbl", {}, offset, limit) as StudentData[];
+  // }
 
   getStudentById(id: number): StudentData | null {
     return this.getEntryById("students_tbl", id) as StudentData | null;

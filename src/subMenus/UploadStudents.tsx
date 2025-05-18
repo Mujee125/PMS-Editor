@@ -272,7 +272,7 @@ const UploadStudents: React.FC<UploadStudentsProps> = ({ onCancel }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchStudents();
+    fetchStudents(); // Replace 0 and 10 with appropriate arguments as per your requirements
     fetchClasses();
     fetchSections();
   }, [fetchStudents, fetchClasses, fetchSections]);

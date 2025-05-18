@@ -1003,6 +1003,7 @@ import React, {
   useRef,
   useEffect,
   useMemo,
+  useTransition,
   useCallback,
 } from "react";
 import { useReactToPrint } from "react-to-print";
@@ -1034,6 +1035,8 @@ const PrintPaper: React.FC<PrintPaperProps> = ({ onCancel }) => {
 
   const chunkRefs = useRef<(HTMLDivElement | null)[]>([]);
   const mschunkRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+    const [isPending, startTransition] = useTransition();
 
   const [selectedClass, setSelectedClass] = useState<number | null>(null);
   const [selectedSection, setSelectedSection] = useState<number | null>(null);
@@ -1449,14 +1452,15 @@ const PrintPaper: React.FC<PrintPaperProps> = ({ onCancel }) => {
             title="Print Single Student per Page"
             type="button"
             onClick={() => {
-              handleSSPrint();
+              startTransition(() => {
+                handleSSPrint();
+              });
               setLoading(true);
             }}
             className="bg-[#2684ff] border-[#2684ff] text-white px-4 border py-2 mb-4 rounded hover:text-[#2684ff] hover:bg-white transition duration-200 ease-in-out"
           >
             SS Print
-          </button>
-        </div>
+          </button>    </div>
       </div>
 
       {/* SS Print Content */}

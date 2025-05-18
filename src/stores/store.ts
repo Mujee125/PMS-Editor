@@ -794,6 +794,33 @@ export const useStudentStore = create<StudentState>((set) => ({
     }
   },
   // Fetch all students
+  // fetchStudents: async () => {
+  //   try {
+  //     const offset = 0; // Define the offset value
+  //     const limit = 0; // Define the limit value
+  //     const students = await window.electron.getAllStudents(offset, limit);
+  //     set({ students });
+  //   } catch (error) {
+  //     console.error("Failed to fetch students:", error);
+  //   }
+  // },
+
+  // fetchStudents: async (offset = 0, limit = 0) => {
+  //   try {
+  //     const initialStudents = await window.electron.getAllStudents(
+  //       offset,
+  //       limit
+  //     );
+  //     set((state) => ({
+  //       students:
+  //         offset === 0
+  //           ? initialStudents
+  //           : [...state.students, ...initialStudents],
+  //     }));
+  //   } catch (error) {
+  //     console.error("Failed to fetch students:", error);
+  //   }
+  // },
   fetchStudents: async () => {
     try {
       const students = await window.electron.getAllStudents();
@@ -802,6 +829,20 @@ export const useStudentStore = create<StudentState>((set) => ({
       console.error("Failed to fetch students:", error);
     }
   },
+  // fetchStudents: async () => {
+  //   try {
+  //     // Fetch first 50 students for quick UI response
+  //     const initialStudents = await window.electron.getAllStudents(0, 500);
+  //     set({ students: initialStudents });
+
+  //     // Fetch remaining students in the background
+  //     window.electron.getAllStudents(500, 5000).then((fullData: StudentData[]) => {
+  //       set((state) => ({ students: [...state.students, ...fullData] }));
+  //     });
+  //   } catch (error) {
+  //     console.error("Failed to fetch students:", error);
+  //   }
+  // },
 
   // Toggle student status
   toggleStudentStatus: async (id) => {

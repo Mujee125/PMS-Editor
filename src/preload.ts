@@ -60,6 +60,8 @@ contextBridge.exposeInMainWorld("electron", {
 
   getAllStudents: (): Promise<StudentData[]> =>
     ipcRenderer.invoke("get-all-students"),
+  // getAllStudents: (offset = 0, limit = 500): Promise<StudentData[]> =>
+  //   ipcRenderer.invoke("get-all-students", offset, limit),
 
   toggleStudentStatus: (id: number) =>
     ipcRenderer.invoke("toggle-student-status", id),

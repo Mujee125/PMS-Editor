@@ -251,13 +251,14 @@ import {
   useNavigate,
   Navigate,
 } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, lazy, Suspense } from "react";
 import HamburgerMenu from "./HamburgerMenu";
 import WindowControl from "./WindowControl";
 import MainContent from "./MainContent";
 import StudentRegistrationForm from "./subMenus/StudentRegistrationForm";
 import { EditorContentEntity, LogoEntity, StudentData } from "./subMenus/types";
-import StudentTable from "./subMenus/StudentTable";
+// import StudentTable from "./subMenus/StudentTable";
+const StudentTable = lazy(() => import("./subMenus/StudentTable"));
 import EntityManager from "./subMenus/EntityManager";
 import EntityManagerSection from "./subMenus/EntityManagerSection";
 import EntityManagerLogo from "./subMenus/EntityManagerLogo";
@@ -275,6 +276,7 @@ import {
   useEditingStudentStore,
 } from "./stores/store";
 import SlecIcon from "./SlecIcon";
+import Loading from "./Loading";
 
 const App: React.FC = () => {
   const { fetchClasses } = useClassStore();
@@ -297,7 +299,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     fetchClasses();
-    fetchStudents();
+    fetchStudents(); // Fetch students with offset and limit
 
     // Handle initial route
     const initialPath = window.location.hash.replace("#", "") || "/";
@@ -321,7 +323,7 @@ const App: React.FC = () => {
   };
 
   useEffect(() => {
-    fetchStudents();
+    fetchStudents(); // Fetch students with offset and limit
   }, []);
 
   const addContentEntity = async (contentData: EditorContentEntity) => {
@@ -413,7 +415,14 @@ const App: React.FC = () => {
             />
 
             {/* Student Table */}
-            <Route path="/view/student-detail" element={<StudentTable />} />
+            <Route
+              path="/view/student-detail"
+              element={
+                <Suspense fallback={<Loading />}>
+                  <StudentTable />
+                </Suspense>
+              }
+            />
 
             {/* Define Entities */}
             <Route

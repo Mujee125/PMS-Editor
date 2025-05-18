@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "strict": true,
+      "lib": ["dom", "es2015", "webworker"],
     "types": ["node"],
     "typeRoots": ["./node_modules/@types", "./src","./@types"],
     "jsx": "react-jsx",

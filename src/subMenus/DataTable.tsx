@@ -567,7 +567,7 @@
 
 // export default DataTable;
 
-
+// ⁡⁣⁣⁢----------- working -------------⁡
 import { useState, useRef } from "react";
 import {
   useReactTable,
@@ -642,7 +642,7 @@ const DataTable = <T,>({
     count: table.getRowModel().rows.length,
     estimateSize: () => 50, // Average row height in pixels
     getScrollElement: () => tableContainerRef.current,
-    overscan: 3, // Extra rows to render above/below visible area
+    overscan: 5, // Extra rows to render above/below visible area
   });
 
   const virtualRows = rowVirtualizer.getVirtualItems();
@@ -805,3 +805,5 @@ const DataTable = <T,>({
 };
 
 export default DataTable;
+
+

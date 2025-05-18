@@ -352,7 +352,7 @@ const PaperHeader: React.FC<PaperHeaderProps> = ({
                 ReChecker Signature
               </span>
             </th>
-            <th className="border-2 p-0 border-[#000]" rowSpan={2} colSpan={2}>
+            <th className="border-2 p-0 border-r-4 border-[#000]" rowSpan={2} colSpan={2}>
               <span className=" font-paypalRegular font-thin px-3 flex justify-center items-center text-center">
                 Time Allowed
               </span>
@@ -437,7 +437,7 @@ const PaperHeader: React.FC<PaperHeaderProps> = ({
             <td className="border-2 p-0 border-[#000] opacity-0 px-5">01</td>
 
             <td
-              className="border-2 p-0 border-[#000] text-center font-normal"
+              className="border-2 p-0 border-r-4 border-[#000] text-center font-normal"
               colSpan={3}
             >
               {totalTime}-Hrs

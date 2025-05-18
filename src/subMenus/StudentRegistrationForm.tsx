@@ -46,7 +46,7 @@ const StudentRegistrationForm: React.FC<StudentRegistrationFormProps> = ({
 
   // Fetch students on component mount
   useEffect(() => {
-    fetchStudents();
+    fetchStudents(); // Fetch students with offset and limit
     fetchClasses();
     fetchSections();
   }, [fetchStudents, fetchClasses, fetchSections]);

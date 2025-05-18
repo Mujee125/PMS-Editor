@@ -444,7 +444,7 @@ const createWindow = (): void => {
 
   mainWindow.setMenu(null);
 
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
   // and load the index.html of the app.
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
   ipcMain.on("window-minimize", () => mainWindow?.minimize());
@@ -467,6 +467,7 @@ app.on("before-quit", () => {
 // app.on("ready", createWindow);
 
 app.on("ready", () => {
+   app.commandLine.appendSwitch("js-flags", "--max-old-space-size=4096");
   installExtension(REACT_DEVELOPER_TOOLS)
     .then((name) => console.log(`Added Extension: ${name}`))
     .catch((err) => console.log("An error occurred: ", err));
@@ -614,6 +615,11 @@ ipcMain.handle("update-student", async (_, id, studentData) => {
 ipcMain.handle("get-all-students", async () => {
   return getAllStudents();
 });
+
+// ipcMain.handle("get-all-students", async (_, offset = 0, limit = 500) => {
+//   return getAllStudents(offset, limit);
+// });
+
 
 ipcMain.handle("delete-by-id", async (event, id: number) => {
   try {

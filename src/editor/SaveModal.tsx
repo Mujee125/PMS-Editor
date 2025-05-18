@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
+import { SelectField } from "../subMenus/SelectField";
+import { useSubjectStore } from "../stores/store";
 
 const SaveModal: React.FC<{
   onSave: (name: string) => void;
@@ -6,37 +8,50 @@ const SaveModal: React.FC<{
   onCancel: () => void;
   fetchExistingName: () => Promise<string | null>;
 }> = ({ onSave, onClose, fetchExistingName, onCancel }) => {
-  const [name, setName] = useState("");
+  const { entities: subjects, fetchEntities: fetchSubjects } =
+    useSubjectStore();
+
+  const [selectedSubject, setSelectedSubject] = useState<string>("");
 
   useEffect(() => {
     const fetchName = async () => {
       const existingName = await fetchExistingName();
       if (existingName) {
-        setName(existingName);
+        setSelectedSubject(existingName);
       }
     };
+    fetchSubjects();
     fetchName();
-  }, [fetchExistingName]);
+  }, [fetchExistingName, fetchSubjects]);
 
   const handleSave = () => {
-    onSave(name);
-    setName("");
+    onSave(selectedSubject);
+    setSelectedSubject("");
     onClose();
     onCancel();
   };
 
+  const activeSubjects = useMemo(
+    () => subjects.filter((sub) => sub.isActive),
+    [subjects]
+  );
+
   return (
-    <div className="fixed inset-0 text-base flex rounded-md items-center justify-center bg-black bg-opacity-50 z-50 hover:border-[#2684ff] transition duration-300 ease-in-out">
-      <div className="bg-white p-6 rounded shadow-lg">
-        <h2 className="text-lg mb-4">Paper Name</h2>
-        <input
-          placeholder="Enter name"
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="border p-2 w-full mb-4 outline-none rounded-md focus:outline-none focus:ring-[1.5px] focus:ring-[#2684ff] hover:border-[#2684ff] transition duration-300 ease-in-out"
+    <div className="fixed inset-0 text-base flex rounded-md items-center justify-center bg-black bg-opacity-50 z-50 hover:border-[#2684ff] transition duration-300 ease-in-out ">
+      <div className="bg-white p-6 rounded shadow-lg w-96">
+        <h2 className="text-lg mb-4">Subject Name</h2>
+
+        <SelectField
+          label="Subject"
+          name="subject"
+          value={selectedSubject}
+          onChange={(e) => setSelectedSubject(e.target.value)}
+          options={activeSubjects.map((sub) => ({
+            value: sub.subject,
+            label: sub.subject,
+          }))}
+          required
         />
-       
         <div className="flex pt-6 justify-around    ">
           <button
             type="button"
